@@ -48,7 +48,5 @@
 
    <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="copy /Y &quot;$(TargetDir)$(ProjectName).dll&quot; &quot;$(ProjDir)Build&quot;  &#xD;&#xA;" />
-	<Exec Command="copy /Y &quot;$(ProjDir)README.md&quot; &quot;$(ProjDir)Build&quot;  &#xD;&#xA;" />
-	<Exec Command="copy /Y &quot;$(ProjDir)CHANGELOG.md&quot; &quot;$(ProjDir)Build&quot;  &#xD;&#xA;" />
   </Target>
 </Project>

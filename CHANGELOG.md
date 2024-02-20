@@ -1,3 +1,7 @@
+# 0.0.5
+- Fix being unable to exit the ship sometimes.
+- Example configs in the github.
+
 # 0.0.4
 - Removed rotation, didn't seem to work properly.
 - Added Ignore rail settings option

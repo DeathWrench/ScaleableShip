@@ -6,7 +6,7 @@ using BepInEx.Configuration;
 
 namespace ScaleableShip
 {
-    [BepInPlugin("ScaleableShip", "ScaleableShip", "0.0.1")]
+    [BepInPlugin("ScaleableShip", "ScaleableShip", "0.0.5")]
     [HarmonyPatch]
     public class ScaleableShip : BaseUnityPlugin
     {
@@ -14,26 +14,37 @@ namespace ScaleableShip
         void Awake()
         {
             ConfigManager.Init(Config);
-            Logger.LogInfo($"Plugin {"ScaleableTelevision"} is loaded!");
+            Logger.LogInfo($"Plugin {"ScaleableShip"} is loaded!");
             Harmony.CreateAndPatchAll(Assembly.GetExecutingAssembly());
         }
         private void Update()
         {
-            if (ConfigManager.activateMode.Value)
+            if (!ConfigManager.activateMode.Value) { return; } 
+            else
             {
+                //if (ConfigManager.newerMode.Value)
+                //{
+                //    GameObject gameObject = GameObject.Find("HangarShip");
+                //    string empty = string.Empty;
+                //            gameObject.transform.localScale = new Vector3(ConfigManager.shipScaleX.Value, ConfigManager.shipScaleY.Value, ConfigManager.shipScaleZ.Value);
+                //}
                 if (ConfigManager.newMode.Value)
                 {
                     StartOfRound.Instance.elevatorTransform.transform.localScale = new Vector3(ConfigManager.shipScaleX.Value, ConfigManager.shipScaleY.Value, ConfigManager.shipScaleZ.Value);
                 }
-                else
+                if (!ConfigManager.newMode.Value)
                 {
                     //GameObject cozylights = GameObject.Find("CozyLights");
                     //GameObject cozylightslod1 = GameObject.Find("CozyLightsLOD1");
                     GameObject shipinside = GameObject.Find("ShipInside");
                     GameObject shipinside001 = GameObject.Find("ShipInside.001");
                     GameObject shiphull = GameObject.Find("ShipHull");
-                    GameObject shiprails = GameObject.Find("ShipRails");
-                    GameObject shiprailposts = GameObject.Find("ShipRailPosts");
+                    //if (ConfigManager.shipInsideWithWindowCompat.Value) 
+                    //{ 
+                    //GameObject shipinsidewithwindow = GameObject.Find("ShipInsideWithWindow");
+                    //shipinsidewithwindow.transform.localScale = new Vector3(ConfigManager.shipScaleX.Value, ConfigManager.shipScaleY.Value, ConfigManager.shipScaleZ.Value);
+                    //shipinsidewithwindow.transform.localPosition = new Vector3(ConfigManager.shipPositionX.Value, ConfigManager.shipPositionY.Value, ConfigManager.shipPositionZ.Value);
+                    //}
                     //GameObject shipsupportbeams = GameObject.Find("ShipSupportBeams");
                     //GameObject spawnroom = GameObject.Find("SpawnRoom");
                     //GameObject spawnroom0 = GameObject.Find("SpawnRoom_0");
@@ -53,12 +64,15 @@ namespace ScaleableShip
                     shipinside.transform.localPosition = new Vector3(ConfigManager.shipPositionX.Value, ConfigManager.shipPositionY.Value, ConfigManager.shipPositionZ.Value);
                     shipinside001.transform.localPosition = new Vector3(ConfigManager.shipPositionX.Value, ConfigManager.shipPositionY.Value, ConfigManager.shipPositionZ.Value);
                     shiphull.transform.localPosition = new Vector3(ConfigManager.shipPositionX.Value, ConfigManager.shipPositionY.Value, ConfigManager.shipPositionZ.Value);
-                    shiprails.transform.localScale = new Vector3(ConfigManager.shipRailScaleX.Value, ConfigManager.shipRailScaleY.Value, ConfigManager.shipRailScaleZ.Value);
-                    shiprails.transform.Rotate(ConfigManager.shipRailRotationX.Value, ConfigManager.shipRailRotationY.Value, ConfigManager.shipRailRotationZ.Value, Space.World);
-                    shiprails.transform.localPosition = new Vector3(ConfigManager.shipRailPositionX.Value, ConfigManager.shipRailPositionX.Value, ConfigManager.shipRailPositionX.Value);
-                    shiprailposts.transform.localScale = new Vector3(ConfigManager.shipRailPostScaleX.Value, ConfigManager.shipRailPostScaleY.Value, ConfigManager.shipRailPostScaleZ.Value);
-                    shiprailposts.transform.localPosition = new Vector3(ConfigManager.shipRailPostPositionX.Value, ConfigManager.shipRailPostPositionY.Value, ConfigManager.shipRailPostPositionZ.Value);
-                    shiprailposts.transform.Rotate(ConfigManager.shipRailPostRotationX.Value, ConfigManager.shipRailPostRotationY.Value, ConfigManager.shipRailPostRotationZ.Value, Space.World);
+                    if (!ConfigManager.ignoreRailSettings.Value)
+                    {
+                        GameObject shiprails = GameObject.Find("ShipRails");
+                        GameObject shiprailposts = GameObject.Find("ShipRailPosts");
+                        shiprails.transform.localScale = new Vector3(ConfigManager.shipRailScaleX.Value, ConfigManager.shipRailScaleY.Value, ConfigManager.shipRailScaleZ.Value);
+                        shiprails.transform.localPosition = new Vector3(ConfigManager.shipRailPositionX.Value, ConfigManager.shipRailPositionY.Value, ConfigManager.shipRailPositionZ.Value);
+                        shiprailposts.transform.localScale = new Vector3(ConfigManager.shipRailPostScaleX.Value, ConfigManager.shipRailPostScaleY.Value, ConfigManager.shipRailPostScaleZ.Value);
+                        shiprailposts.transform.localPosition = new Vector3(ConfigManager.shipRailPostPositionX.Value, ConfigManager.shipRailPostPositionY.Value, ConfigManager.shipRailPostPositionZ.Value);
+                    }
                     //shipsupportbeams.transform.localScale = new Vector3(ConfigManager.shipScaleX.Value, ConfigManager.shipScaleY.Value, ConfigManager.shipScaleZ.Value);
                     //shipsupportbeams001.transform.localScale = new Vector3(ConfigManager.shipScaleX.Value, ConfigManager.shipScaleY.Value, ConfigManager.shipScaleZ.Value);
                     //catwalkraillining.transform.localScale = new Vector3(ConfigManager.shipScaleX.Value, ConfigManager.shipScaleY.Value, ConfigManager.shipScaleZ.Value);
@@ -70,33 +84,7 @@ namespace ScaleableShip
                     //pbmesh39048.transform.localScale = new Vector3(ConfigManager.shipScaleX.Value, ConfigManager.shipScaleY.Value, ConfigManager.shipScaleZ.Value);
                     //pbmesh84786.transform.localScale = new Vector3(ConfigManager.shipScaleX.Value, ConfigManager.shipScaleY.Value, ConfigManager.shipScaleZ.Value);
                 }
-            }
+            } return;
         }
-        // Token: 0x06000021 RID: 33 RVA: 0x000028F0 File Offset: 0x00000AF0
-        // Token: 0x06000022 RID: 34 RVA: 0x00002906 File Offset: 0x00000B06
-        protected internal string __getTypeName()
-        {
-            return "AutoParentToShip";
-        }
-
-        // Token: 0x0400002B RID: 43
-        public bool disableObject;
-
-        // Token: 0x0400002C RID: 44
-        public Vector3 positionOffset;
-
-        // Token: 0x0400002D RID: 45
-        public Vector3 rotationOffset;
-
-        // Token: 0x0400002E RID: 46
-        [HideInInspector]
-        public Vector3 startingPosition;
-
-        // Token: 0x0400002F RID: 47
-        [HideInInspector]
-        public Vector3 startingRotation;
-
-        // Token: 0x04000030 RID: 48
-        public bool overrideOffset;
     }
 }
