@@ -5,4 +5,4 @@
 ## Required to work
 The line in BepinEX.cfg must be set as such: HideManagerGameObject = true
 
-If it stops working just delete the config.
+If it stops working delete the config.
