@@ -1,3 +1,15 @@
+# 0.0.7
+- Updated default config settings
+- Add presets as config options
+- Fix scaling and position being incorrect
+#### Now: 
+- x = x
+y = y
+z = z 
+
+# 0.0.6
+- Fix console spam
+
 # 0.0.5
 - Fix being unable to exit the ship sometimes.
 - Example configs in the github.
