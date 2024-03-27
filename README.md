@@ -1,4 +1,4 @@
-# Inspired by the [BiggerShip](https://thunderstore.io/c/lethal-company/p/Caverne/BiggerShip/) mod. I've gone and made it worse. You can now set the scale values yourself. This mod will spam errors. You have been warned. 
+# Inspired by the [BiggerShip](https://thunderstore.io/c/lethal-company/p/Caverne/BiggerShip/) mod. I've gone and made it worse. You can now set the scale values yourself.
 
 ## Required to work
 The line in BepinEX.cfg must be set as such: HideManagerGameObject = true
