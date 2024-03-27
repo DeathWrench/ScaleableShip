@@ -4,8 +4,8 @@
 - Fix scaling and position being incorrect
 #### Now: 
 - x = x
-y = y
-z = z 
+- y = y
+- z = z 
 
 # 0.0.6
 - Fix console spam
